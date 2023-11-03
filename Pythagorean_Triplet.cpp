@@ -18,7 +18,7 @@ public:
 	            int bredth_square = j*j;
 	            int hyp_square = height_square + bredth_square;
 	            int hyp = sqrt(hyp_square);
-	            if(hyp*hyp != hyp_square){
+	            if(hyp > maximum or hyp*hyp != hyp_square){
 	                continue;
 	            }
 	            if(squares[hyp] == true){
