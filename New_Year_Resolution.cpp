@@ -1,22 +1,27 @@
 class Solution{
     public:
-    bool calculate(int n, int coins[], int sum, map<pair<int, int>, bool>& mp){
-        if(n == 0){
-            if(sum != 0 and (sum%20 == 0 or sum%24 == 0 or sum%2024 == 0)){
-                return true;
-            }
-            return false;
-        }
-        if(mp.find({n, sum}) != mp.end()){
-            return mp[{n, sum}];
-        }
-        bool include = calculate(n - 1, coins, sum + coins[n - 1], mp);
-        bool exclude = calculate(n - 1, coins, sum, mp);
-        mp[{n, sum}] = include or exclude;
-        return mp[{n, sum}];
-    }
     int isPossible(int N , int coins[]){
-        map<pair<int, int>, bool> mp;
-        return calculate(N, coins, 0, mp);
+        int total = accumulate(coins, coins + N, 0);
+        vector<vector<bool>> possibility(N + 1, vector<bool>(total + 1));
+        for(int i = 0; i <= N; i++){
+            possibility[i][0] = true;
+        }
+        for(int i = 1; i <= total; i++){
+            possibility[0][i] = false;
+        }
+        for(int idx = 1; idx <= N; idx++){
+            for(int sum = 1; sum <= total; sum++){
+                if(sum < coins[idx - 1])
+                    possibility[idx][sum] = possibility[idx - 1][sum];
+                if(sum >= coins[idx - 1])
+                    possibility[idx][sum] = possibility[idx - 1][sum]
+                                   or possibility[idx - 1][sum - coins[idx - 1]];
+            }
+        }
+        for(int sum = 1; sum <= total; sum++){
+            if((sum%20 == 0 or sum%24 == 0 or sum == 2024) and possibility[N][sum])
+                return true;
+        }
+        return false;
     }
 };
