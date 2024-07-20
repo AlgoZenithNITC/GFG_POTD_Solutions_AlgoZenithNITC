@@ -1,0 +1,22 @@
+
+
+def solve(root):
+    if root is None:
+        return None
+    if root.left is None and root.right is None:
+        return root
+    
+    root.left = solve(root.left)
+    root.right = solve(root.right)
+    
+    if root.left is None:
+        return root.right
+    if root.right is None:
+        return root.left
+    
+    return root
+
+class Solution:
+    def RemoveHalfNodes(self, root):
+        # code here
+        return solve(root)
