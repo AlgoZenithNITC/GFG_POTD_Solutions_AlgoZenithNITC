@@ -1,4 +1,6 @@
-def equilibriumPoint(arr):
+class Solution:
+   
+   def findEquilibrium(self,arr):
     prefSum = 0
     total = sum(arr)
 
@@ -11,3 +13,4 @@ def equilibriumPoint(arr):
 
     # There is no equilibrium point
     return -1
+
