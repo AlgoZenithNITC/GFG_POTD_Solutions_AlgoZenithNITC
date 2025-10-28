@@ -1,6 +1,5 @@
 class Solution {
-  public:
-    vector<vector<int>> nearest(vector<vector<int>>& grid) {
+  public ArrayList<ArrayList<Integer>> nearest(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
 
